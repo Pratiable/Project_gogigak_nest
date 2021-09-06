@@ -7,10 +7,10 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { CartItems } from './CartItems';
-import { OrderItems } from './OrderItems';
-import { Options } from './Options';
-import { Products } from './Products';
+import { CartItem } from './cart-item.entity';
+import { OrderItem } from './order-item.entity';
+import { Option } from './option.entity';
+import { Product } from './product.entity';
 
 @Index('options_option_id', ['optionId'])
 @Index('options_product_id', ['productId'])
@@ -25,21 +25,21 @@ export class ProductsOptions {
   @Column('bigint', { name: 'product_id' })
   productId: string;
 
-  @OneToMany(() => CartItems, (cartItems) => cartItems.productOptions)
-  cartItems: CartItems[];
+  @OneToMany(() => CartItem, (cartItems) => cartItems.productOptions)
+  cartItems: CartItem[];
 
-  @OneToMany(() => OrderItems, (orderItems) => orderItems.productOption)
-  orderItems: OrderItems[];
+  @OneToMany(() => OrderItem, (orderItems) => orderItems.productOption)
+  orderItems: OrderItem[];
 
-  @ManyToOne(() => Options, (options) => options.productsOptions, {
+  @ManyToOne(() => Option, (options) => options.productsOptions, {
     onDelete: 'CASCADE',
   })
   @JoinColumn([{ name: 'option_id', referencedColumnName: 'id' }])
-  option: Options;
+  option: Option;
 
-  @ManyToOne(() => Products, (products) => products.productsOptions, {
+  @ManyToOne(() => Product, (products) => products.productsOptions, {
     onDelete: 'CASCADE',
   })
   @JoinColumn([{ name: 'product_id', referencedColumnName: 'id' }])
-  product: Products;
+  product: Product;
 }

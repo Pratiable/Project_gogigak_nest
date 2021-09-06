@@ -5,15 +5,15 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { CartItems } from './CartItems';
-import { Orders } from './Orders';
-import { Reviews } from './Reviews';
-import { UserCoupons } from './UserCoupons';
+import { CartItem } from './cart-item.entity';
+import { Order } from './order.entity';
+import { Review } from './review.entity';
+import { UserCoupons } from './user-coupons.entity';
 
 @Index('email', ['email'], { unique: true })
 @Index('phone_number', ['phoneNumber'], { unique: true })
 @Entity('users')
-export class Users {
+export class User {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
   id: string;
 
@@ -29,7 +29,7 @@ export class Users {
   @Column('varchar', { name: 'phone_number', unique: true, length: 20 })
   phoneNumber: string;
 
-  @Column('int', { name: 'point' })
+  @Column('int', { name: 'point', default: 0 })
   point: number;
 
   @Column('varchar', { name: 'address', nullable: true, length: 300 })
@@ -38,14 +38,14 @@ export class Users {
   @Column('varchar', { name: 'zip_code', nullable: true, length: 20 })
   zipCode: string | null;
 
-  @OneToMany(() => CartItems, (cartItems) => cartItems.user)
-  cartItems: CartItems[];
+  @OneToMany(() => CartItem, (cartItems) => cartItems.user)
+  cartItems: CartItem[];
 
-  @OneToMany(() => Orders, (orders) => orders.user)
-  orders: Orders[];
+  @OneToMany(() => Order, (orders) => orders.user)
+  orders: Order[];
 
-  @OneToMany(() => Reviews, (reviews) => reviews.user)
-  reviews: Reviews[];
+  @OneToMany(() => Review, (reviews) => reviews.user)
+  reviews: Review[];
 
   @OneToMany(() => UserCoupons, (userCoupons) => userCoupons.user)
   userCoupons: UserCoupons[];

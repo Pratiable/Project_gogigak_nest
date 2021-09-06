@@ -6,15 +6,15 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Orders } from './Orders';
-import { ProductsOptions } from './ProductsOptions';
-import { OrderItemStatuses } from './OrderItemStatuses';
+import { Order } from './order.entity';
+import { ProductsOptions } from './products-options.entity';
+import { OrderItemStatus } from './order-item-status.entity';
 
 @Index('order_id', ['orderId'])
 @Index('product_option_id', ['productOptionId'])
 @Index('status_id', ['statusId'])
 @Entity('order_items')
-export class OrderItems {
+export class OrderItem {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
   id: string;
 
@@ -30,11 +30,11 @@ export class OrderItems {
   @Column('bigint', { name: 'status_id', nullable: true })
   statusId: string | null;
 
-  @ManyToOne(() => Orders, (orders) => orders.orderItems, {
+  @ManyToOne(() => Order, (orders) => orders.orderItems, {
     onDelete: 'CASCADE',
   })
   @JoinColumn([{ name: 'order_id', referencedColumnName: 'id' }])
-  order: Orders;
+  order: Order;
 
   @ManyToOne(
     () => ProductsOptions,
@@ -45,10 +45,10 @@ export class OrderItems {
   productOption: ProductsOptions;
 
   @ManyToOne(
-    () => OrderItemStatuses,
+    () => OrderItemStatus,
     (orderItemStatuses) => orderItemStatuses.orderItems,
     { onDelete: 'SET NULL' },
   )
   @JoinColumn([{ name: 'status_id', referencedColumnName: 'id' }])
-  status: OrderItemStatuses;
+  status: OrderItemStatus;
 }

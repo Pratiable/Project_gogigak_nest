@@ -6,13 +6,13 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Products } from './Products';
-import { Users } from './Users';
+import { Product } from './product.entity';
+import { User } from './user.entity';
 
 @Index('product_id', ['productId'])
 @Index('user_id', ['userId'])
 @Entity('reviews')
-export class Reviews {
+export class Review {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
   id: string;
 
@@ -34,15 +34,15 @@ export class Reviews {
   @Column('bigint', { name: 'user_id' })
   userId: string;
 
-  @ManyToOne(() => Products, (products) => products.productReviews, {
+  @ManyToOne(() => Product, (products) => products.productReviews, {
     onDelete: 'CASCADE',
   })
   @JoinColumn([{ name: 'product_id', referencedColumnName: 'id' }])
-  product: Products;
+  product: Product;
 
-  @ManyToOne(() => Users, (users) => users.reviews, {
+  @ManyToOne(() => User, (users) => users.reviews, {
     onDelete: 'CASCADE',
   })
   @JoinColumn([{ name: 'user_id', referencedColumnName: 'id' }])
-  user: Users;
+  user: User;
 }

@@ -6,13 +6,13 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { ProductsOptions } from './ProductsOptions';
-import { Users } from './Users';
+import { ProductsOptions } from './products-options.entity';
+import { User } from './user.entity';
 
 @Index('products_options_id', ['productOptionsId'])
 @Index('user_id', ['userId'], {})
 @Entity('cart_items')
-export class CartItems {
+export class CartItem {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
   id: string;
 
@@ -33,9 +33,9 @@ export class CartItems {
   @JoinColumn([{ name: 'product_options_id', referencedColumnName: 'id' }])
   productOptions: ProductsOptions;
 
-  @ManyToOne(() => Users, (users) => users.cartItems, {
+  @ManyToOne(() => User, (users) => users.cartItems, {
     onDelete: 'CASCADE',
   })
   @JoinColumn([{ name: 'user_id', referencedColumnName: 'id' }])
-  user: Users;
+  user: User;
 }

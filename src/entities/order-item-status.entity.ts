@@ -1,14 +1,14 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Orders } from './Orders';
+import { OrderItem } from './order-item.entity';
 
-@Entity('order_statuses')
-export class OrderStatuses {
+@Entity('order_item_statuses')
+export class OrderItemStatus {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
   id: string;
 
   @Column('varchar', { name: 'status', length: 20 })
   status: string;
 
-  @OneToMany(() => Orders, (orders) => orders.status)
-  orders: Orders[];
+  @OneToMany(() => OrderItem, (orderItems) => orderItems.status)
+  orderItems: OrderItem[];
 }

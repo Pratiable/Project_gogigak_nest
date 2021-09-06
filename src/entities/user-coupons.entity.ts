@@ -6,8 +6,8 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Coupons } from './Coupons';
-import { Users } from './Users';
+import { Coupon } from './coupon.entity';
+import { User } from './user.entity';
 
 @Index('coupon_id', ['couponId'])
 @Index('user_id', ['userId'])
@@ -22,15 +22,15 @@ export class UserCoupons {
   @Column('bigint', { name: 'user_id' })
   userId: string;
 
-  @ManyToOne(() => Coupons, (coupons) => coupons.userCoupons, {
+  @ManyToOne(() => Coupon, (coupons) => coupons.userCoupons, {
     onDelete: 'CASCADE',
   })
   @JoinColumn([{ name: 'coupon_id', referencedColumnName: 'id' }])
-  coupon: Coupons;
+  coupon: Coupon;
 
-  @ManyToOne(() => Users, (users) => users.userCoupons, {
+  @ManyToOne(() => User, (users) => users.userCoupons, {
     onDelete: 'CASCADE',
   })
   @JoinColumn([{ name: 'user_id', referencedColumnName: 'id' }])
-  user: Users;
+  user: User;
 }

@@ -1,9 +1,9 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Orders } from './Orders';
-import { UserCoupons } from './UserCoupons';
+import { Order } from './order.entity';
+import { UserCoupons } from './user-coupons.entity';
 
 @Entity('coupons')
-export class Coupons {
+export class Coupon {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
   id: string;
 
@@ -13,8 +13,8 @@ export class Coupons {
   @Column('int', { name: 'value' })
   value: number;
 
-  @OneToMany(() => Orders, (orders) => orders.coupon)
-  orders: Orders[];
+  @OneToMany(() => Order, (orders) => orders.coupon)
+  orders: Order[];
 
   @OneToMany(() => UserCoupons, (userCoupons) => userCoupons.coupon)
   userCoupons: UserCoupons[];

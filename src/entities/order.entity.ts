@@ -7,16 +7,16 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Coupons } from './Coupons';
-import { OrderStatuses } from './OrderStatuses';
-import { Users } from './Users';
-import { OrderItems } from './OrderItems';
+import { Coupon } from './coupon.entity';
+import { OrderStatus } from './order-status.entity';
+import { User } from './user.entity';
+import { OrderItem } from './order-item.entity';
 
 @Index('status_id', ['statusId'])
 @Index('user_id', ['userId'])
 @Index('coupon_id', ['couponId'])
 @Entity('orders')
-export class Orders {
+export class Order {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
   id: string;
 
@@ -53,24 +53,24 @@ export class Orders {
   @Column('bigint', { name: 'user_id', nullable: true })
   userId: string | null;
 
-  @ManyToOne(() => Coupons, (coupons) => coupons.orders, {
+  @ManyToOne(() => Coupon, (coupons) => coupons.orders, {
     onDelete: 'SET NULL',
   })
   @JoinColumn([{ name: 'coupon_id', referencedColumnName: 'id' }])
-  coupon: Coupons;
+  coupon: Coupon;
 
-  @ManyToOne(() => OrderStatuses, (orderStatuses) => orderStatuses.orders, {
+  @ManyToOne(() => OrderStatus, (orderStatuses) => orderStatuses.orders, {
     onDelete: 'SET NULL',
   })
   @JoinColumn([{ name: 'status_id', referencedColumnName: 'id' }])
-  status: OrderStatuses;
+  status: OrderStatus;
 
-  @ManyToOne(() => Users, (users) => users.orders, {
+  @ManyToOne(() => User, (users) => users.orders, {
     onDelete: 'SET NULL',
   })
   @JoinColumn([{ name: 'user_id', referencedColumnName: 'id' }])
-  user: Users;
+  user: User;
 
-  @OneToMany(() => OrderItems, (orderItems) => orderItems.order)
-  orderItems: OrderItems[];
+  @OneToMany(() => OrderItem, (orderItems) => orderItems.order)
+  orderItems: OrderItem[];
 }

@@ -7,14 +7,14 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Images } from './Images';
-import { Categories } from './Categories';
-import { ProductsOptions } from './ProductsOptions';
-import { Reviews } from './Reviews';
+import { Image } from './image.entity';
+import { Category } from './category.entity';
+import { ProductsOptions } from './products-options.entity';
+import { Review } from './review.entity';
 
 @Index('category_id', ['categoryId'])
 @Entity('products')
-export class Products {
+export class Product {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
   id: string;
 
@@ -48,14 +48,14 @@ export class Products {
   @Column('bigint', { name: 'category_id' })
   categoryId: string;
 
-  @OneToMany(() => Images, (images) => images.product)
-  images: Images[];
+  @OneToMany(() => Image, (images) => images.product)
+  images: Image[];
 
-  @ManyToOne(() => Categories, (categories) => categories.products, {
+  @ManyToOne(() => Category, (categories) => categories.products, {
     onDelete: 'CASCADE',
   })
   @JoinColumn([{ name: 'category_id', referencedColumnName: 'id' }])
-  category: Categories;
+  category: Category;
 
   @OneToMany(
     () => ProductsOptions,
@@ -63,6 +63,6 @@ export class Products {
   )
   productsOptions: ProductsOptions[];
 
-  @OneToMany(() => Reviews, (reviews) => reviews.product)
-  productReviews: Reviews[];
+  @OneToMany(() => Review, (reviews) => reviews.product)
+  productReviews: Review[];
 }

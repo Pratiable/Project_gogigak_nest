@@ -1,8 +1,8 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Products } from './Products';
+import { Product } from './product.entity';
 
 @Entity('categories')
-export class Categories {
+export class Category {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
   id: string;
 
@@ -12,6 +12,6 @@ export class Categories {
   @Column('varchar', { name: 'image', length: 2000 })
   image: string;
 
-  @OneToMany(() => Products, (products) => products.category)
-  products: Products[];
+  @OneToMany(() => Product, (products) => products.category)
+  products: Product[];
 }

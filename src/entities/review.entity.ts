@@ -14,7 +14,7 @@ import { User } from './user.entity';
 @Entity('reviews')
 export class Review {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
-  id: string;
+  id: number;
 
   @Column('varchar', { name: 'image_url', nullable: true, length: 2000 })
   imageUrl: string | null;
@@ -29,10 +29,10 @@ export class Review {
   createdAt: Date;
 
   @Column('bigint', { name: 'product_id' })
-  productId: string;
+  productId: number;
 
   @Column('bigint', { name: 'user_id' })
-  userId: string;
+  userId: number;
 
   @ManyToOne(() => Product, (products) => products.productReviews, {
     onDelete: 'CASCADE',

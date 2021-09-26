@@ -4,7 +4,7 @@ import { OrderItem } from './order-item.entity';
 @Entity('order_item_statuses')
 export class OrderItemStatus {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
-  id: string;
+  id: number;
 
   @Column('varchar', { name: 'status', length: 20 })
   status: string;

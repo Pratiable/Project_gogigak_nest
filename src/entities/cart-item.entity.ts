@@ -14,16 +14,16 @@ import { User } from './user.entity';
 @Entity('cart_items')
 export class CartItem {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
-  id: string;
+  id: number;
 
   @Column('int', { name: 'quantity' })
   quantity: number;
 
   @Column('bigint', { name: 'product_options_id' })
-  productOptionsId: string;
+  productOptionsId: number;
 
   @Column('bigint', { name: 'user_id' })
-  userId: string;
+  userId: number;
 
   @ManyToOne(
     () => ProductsOptions,

@@ -16,19 +16,19 @@ import { OrderItemStatus } from './order-item-status.entity';
 @Entity('order_items')
 export class OrderItem {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
-  id: string;
+  id: number;
 
   @Column('int', { name: 'quantity' })
   quantity: number;
 
   @Column('bigint', { name: 'order_id' })
-  orderId: string;
+  orderId: number;
 
   @Column('bigint', { name: 'product_option_id', nullable: true })
-  productOptionId: string | null;
+  productOptionId: number | null;
 
   @Column('bigint', { name: 'status_id', nullable: true })
-  statusId: string | null;
+  statusId: number | null;
 
   @ManyToOne(() => Order, (orders) => orders.orderItems, {
     onDelete: 'CASCADE',

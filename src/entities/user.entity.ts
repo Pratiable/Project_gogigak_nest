@@ -15,7 +15,7 @@ import { UserCoupons } from './user-coupons.entity';
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
-  id: string;
+  id: number;
 
   @Column('varchar', { name: 'email', unique: true, length: 100 })
   email: string;

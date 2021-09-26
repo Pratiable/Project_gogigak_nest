@@ -16,7 +16,7 @@ import { Review } from './review.entity';
 @Entity('products')
 export class Product {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
-  id: string;
+  id: number;
 
   @Column('varchar', { name: 'name', length: 30 })
   name: string;
@@ -25,10 +25,10 @@ export class Product {
   butcheredDate: string;
 
   @Column('decimal', { name: 'price', precision: 10, scale: 2 })
-  price: string;
+  price: number;
 
   @Column('decimal', { name: 'grams', precision: 10, scale: 2 })
-  grams: string;
+  grams: number;
 
   @Column('tinyint', { name: 'is_organic', width: 1 })
   isOrganic: boolean;
@@ -46,7 +46,7 @@ export class Product {
   stock: number;
 
   @Column('bigint', { name: 'category_id' })
-  categoryId: string;
+  categoryId: number;
 
   @OneToMany(() => Image, (images) => images.product)
   images: Image[];

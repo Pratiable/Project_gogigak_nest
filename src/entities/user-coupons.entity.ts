@@ -14,13 +14,13 @@ import { User } from './user.entity';
 @Entity('user_coupons')
 export class UserCoupons {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
-  id: string;
+  id: number;
 
   @Column('bigint', { name: 'coupon_id' })
-  couponId: string;
+  couponId: number;
 
   @Column('bigint', { name: 'user_id' })
-  userId: string;
+  userId: number;
 
   @ManyToOne(() => Coupon, (coupons) => coupons.userCoupons, {
     onDelete: 'CASCADE',

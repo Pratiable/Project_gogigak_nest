@@ -18,7 +18,7 @@ import { OrderItem } from './order-item.entity';
 @Entity('orders')
 export class Order {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
-  id: string;
+  id: number;
 
   @Column('date', { name: 'delivery_date' })
   deliveryDate: string;
@@ -36,7 +36,7 @@ export class Order {
   point: number;
 
   @Column('decimal', { name: 'delivery_fee', precision: 10, scale: 2 })
-  deliveryFee: string;
+  deliveryFee: number;
 
   @Column('date', { name: 'created_at' })
   createdAt: string;
@@ -45,13 +45,13 @@ export class Order {
   totalPrice: number;
 
   @Column('bigint', { name: 'coupon_id', nullable: true })
-  couponId: string | null;
+  couponId: number | null;
 
   @Column('bigint', { name: 'status_id', nullable: true })
-  statusId: string | null;
+  statusId: number | null;
 
   @Column('bigint', { name: 'user_id', nullable: true })
-  userId: string | null;
+  userId: number | null;
 
   @ManyToOne(() => Coupon, (coupons) => coupons.orders, {
     onDelete: 'SET NULL',

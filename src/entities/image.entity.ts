@@ -12,7 +12,7 @@ import { Product } from './product.entity';
 @Entity('images')
 export class Image {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
-  id: string;
+  id: number;
 
   @Column('varchar', { name: 'image_url', length: 2000 })
   imageUrl: string;
@@ -21,7 +21,7 @@ export class Image {
   sequence: number;
 
   @Column('bigint', { name: 'product_id' })
-  productId: string;
+  productId: number;
 
   @ManyToOne(() => Product, (products) => products.images, {
     onDelete: 'CASCADE',

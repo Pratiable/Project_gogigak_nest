@@ -17,13 +17,13 @@ import { Product } from './product.entity';
 @Entity('products_options')
 export class ProductsOptions {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
-  id: string;
+  id: number;
 
   @Column('bigint', { name: 'option_id' })
-  optionId: string;
+  optionId: number;
 
   @Column('bigint', { name: 'product_id' })
-  productId: string;
+  productId: number;
 
   @OneToMany(() => CartItem, (cartItems) => cartItems.productOptions)
   cartItems: CartItem[];

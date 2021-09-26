@@ -5,7 +5,7 @@ import { UserCoupons } from './user-coupons.entity';
 @Entity('coupons')
 export class Coupon {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
-  id: string;
+  id: number;
 
   @Column('varchar', { name: 'name', length: 100 })
   name: string;

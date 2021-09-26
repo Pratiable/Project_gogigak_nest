@@ -4,7 +4,7 @@ import { ProductsOptions } from './products-options.entity';
 @Entity('options')
 export class Option {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
-  id: string;
+  id: number;
 
   @Column('varchar', { name: 'name', length: 2000 })
   name: string;

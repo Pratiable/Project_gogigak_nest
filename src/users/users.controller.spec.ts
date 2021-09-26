@@ -11,7 +11,7 @@ describe('UsersController', () => {
       providers: [UsersService],
     }).compile();
 
-    controller = module.get<UsersController>(UsersControl ler);
+    controller = module.get<UsersController>(UsersController);
   });
 
   it('should be defined', () => {

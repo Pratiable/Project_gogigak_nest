@@ -36,10 +36,7 @@ export class AuthController {
   @ApiResponse({ status: 200, description: 'Success', type: SignInResponseDto })
   @HttpCode(200)
   @Post('signin')
-  async signIn(
-    @Body() data: SignInRequestDto,
-  ): Promise<SuccessResponseDto<any>> {
-    const token = await this.authService.signIn(data);
-    return new SuccessResponseDto<any>({ data: token });
+  async signIn(@Body() data: SignInRequestDto): Promise<SignInResponseDto> {
+    return await this.authService.signIn(data);
   }
 }

@@ -12,7 +12,7 @@ import { UserCoupons } from './user-coupons.entity';
 
 @Index('email', ['email'], { unique: true })
 @Index('phone_number', ['phoneNumber'], { unique: true })
-@Entity('users')
+@Entity('user')
 export class User {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
   id: number;

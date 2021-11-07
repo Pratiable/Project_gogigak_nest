@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { HttpExceptionFilter } from './common/filters/httpException.filter';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as dayjs from 'dayjs';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -29,6 +30,8 @@ async function bootstrap() {
     swaggerOptions: { defaultModelsExpandDepth: 0, docExpansion: 'none' },
     customSiteTitle: process.env.PROJECT_NAME,
   });
+
+  dayjs.locale('Asia/Seoul');
 
   app.useGlobalPipes(
     new ValidationPipe({

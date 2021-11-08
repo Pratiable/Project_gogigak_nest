@@ -9,6 +9,8 @@ import { OrderItem } from '../entities/order-item.entity';
 import { Product } from '../entities/product.entity';
 import { ProductsOptions } from '../entities/products-options.entity';
 import { OrderListDto } from './dto/order-list.dto';
+import { UserCoupons } from '../entities/user-coupons.entity';
+import { Coupon } from '../entities/coupon.entity';
 
 @Injectable()
 export class UserService {
@@ -16,6 +18,8 @@ export class UserService {
     @InjectRepository(User) private userRepository: Repository<User>,
     @InjectRepository(Address) private addressRepository: Repository<Address>,
     @InjectRepository(Order) private orderRepository: Repository<Order>,
+    @InjectRepository(UserCoupons)
+    private userCouponRepository: Repository<UserCoupons>,
   ) {}
 
   async getUserInfo(user: User): Promise<UserInfoDto> {
@@ -38,17 +42,29 @@ export class UserService {
           .where('orderItem.orderId = orders.id')
           .groupBy('orderItem.orderId');
       }, 'totalAmount')
-      .leftJoin(OrderItem, 'order_items', 'order_items.order_id = orders.id')
+      .leftJoin(OrderItem, 'orderItems', 'orderItems.order_id = orders.id')
       .leftJoin(
         ProductsOptions,
         'productOptions',
-        'productOptions.id = order_items.productOptionId',
+        'productOptions.id = orderItems.productOptionId',
       )
       .leftJoin(Product, 'product', 'product.id = productOptions.productId')
       .groupBy('orders.id')
       .where('orders.user_id = :id', { id: user.id })
       .getRawMany();
     result.orderList = orders.map((el) => new OrderListDto(el));
+
+    result.coupons = await this.userCouponRepository
+      .createQueryBuilder('userCoupon')
+      .select([
+        'coupon.id AS id',
+        'coupon.name AS name',
+        'coupon.value AS value',
+      ])
+      .innerJoin(Coupon, 'coupon', 'coupon.id = userCoupon.coupon.id')
+      .where('userCoupon.userId = :id', { id: user.id })
+      .getRawMany();
+
     return result;
   }
 }

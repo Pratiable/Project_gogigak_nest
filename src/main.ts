@@ -1,12 +1,17 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
-import { HttpExceptionFilter } from './common/filters/httpException.filter';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { AppModule } from './app.module';
+import { HttpExceptionFilter } from './common/filters/httpException.filter';
+import { MorganMiddleware } from './common/middlewares/morgan.middleware';
 import * as dayjs from 'dayjs';
+import * as hpp from 'hpp';
+import * as helmet from 'helmet';
+import * as morgan from 'morgan';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const env = process.env.NODE_ENV === 'production';
 
   const options = new DocumentBuilder()
     .setTitle(`${process.env.PROJECT_NAME} API Docs`)
@@ -42,7 +47,16 @@ async function bootstrap() {
     }),
   );
   app.useGlobalFilters(new HttpExceptionFilter());
-  app.enableCors({ origin: true, credentials: true });
+
+  if (env) {
+    app.use(hpp({ checkQuery: false }));
+    app.use(helmet({ contentSecurityPolicy: false }));
+    app.use(morgan(MorganMiddleware));
+    app.enableCors({ origin: true, credentials: true });
+  } else {
+    app.use(morgan('dev'));
+    app.enableCors({ origin: true, credentials: true });
+  }
 
   const PORT = process.env.PORT || 3000;
   await app.listen(PORT);

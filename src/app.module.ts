@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { DeliveryModule } from './delivery/delivery.module';
+import { CategoryModule } from './category/category.module';
 import * as ormconfig from 'ormconfig';
 
 @Module({
@@ -13,6 +14,7 @@ import * as ormconfig from 'ormconfig';
     UserModule,
     AuthModule,
     DeliveryModule,
+    CategoryModule,
   ],
   controllers: [],
   providers: [],

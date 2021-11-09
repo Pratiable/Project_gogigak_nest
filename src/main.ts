@@ -2,7 +2,6 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
-import { HttpExceptionFilter } from './common/filters/httpException.filter';
 import { MorganMiddleware } from './common/middlewares/morgan.middleware';
 import * as dayjs from 'dayjs';
 import * as hpp from 'hpp';
@@ -46,7 +45,6 @@ async function bootstrap() {
       transform: true,
     }),
   );
-  app.useGlobalFilters(new HttpExceptionFilter());
 
   if (env) {
     app.use(hpp({ checkQuery: false }));

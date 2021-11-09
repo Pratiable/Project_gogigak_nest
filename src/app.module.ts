@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { DeliveryModule } from './delivery/delivery.module';
 import * as ormconfig from 'ormconfig';
 
 @Module({
@@ -11,6 +12,7 @@ import * as ormconfig from 'ormconfig';
     TypeOrmModule.forRoot(ormconfig),
     UserModule,
     AuthModule,
+    DeliveryModule,
   ],
   controllers: [],
   providers: [],

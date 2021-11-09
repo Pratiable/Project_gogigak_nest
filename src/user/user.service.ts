@@ -11,6 +11,7 @@ import { ProductsOptions } from '../entities/products-options.entity';
 import { OrderListDto } from './dto/order-list.dto';
 import { UserCoupons } from '../entities/user-coupons.entity';
 import { Coupon } from '../entities/coupon.entity';
+import { CheckAvailableFreshDeliveryDto } from '../delivery/dto/check-available-fresh-delivery.dto';
 
 @Injectable()
 export class UserService {

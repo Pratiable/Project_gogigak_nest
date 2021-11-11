@@ -7,7 +7,7 @@ import { CheckAvailableFreshDeliveryRequestDto } from './dto/check-available-fre
 import { SuccessResponseDto } from '../common/dto/success-response.dto';
 
 @ApiTags('Delivery')
-@Controller('delivery')
+@Controller('deliveries')
 export class DeliveryController {
   constructor(private readonly deliveryService: DeliveryService) {}
   @ApiOperation({

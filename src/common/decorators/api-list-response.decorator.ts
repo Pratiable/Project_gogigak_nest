@@ -22,13 +22,8 @@ export const ApiListResponse = <TModel extends Type<unknown>>(
                 type: 'string',
               },
               list: {
-                type: 'object',
-                properties: {
-                  rows: {
-                    type: 'array',
-                    items: { $ref: getSchemaPath(model) },
-                  },
-                },
+                type: 'array',
+                items: { $ref: getSchemaPath(model) },
               },
             },
           },

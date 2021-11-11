@@ -6,7 +6,7 @@ import { ApiDataResponse } from '../common/decorators/api-data-response.decorato
 import { CategoryInfoDto } from './dto/category-info.dto';
 
 @ApiTags('Category')
-@Controller('category')
+@Controller('categories')
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 

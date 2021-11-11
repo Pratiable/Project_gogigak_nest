@@ -8,7 +8,7 @@ import { ApiDataResponse } from '../common/decorators/api-data-response.decorato
 import { ProductListItemDto } from './dto/product-list-item.dto';
 
 @ApiTags('Product')
-@Controller('product')
+@Controller('products')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 

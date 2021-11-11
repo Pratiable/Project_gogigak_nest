@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from '../entities/product.entity';
 import { Repository } from 'typeorm';
@@ -7,6 +7,7 @@ import { ProductListRequestDto } from './dto/product-list-request.dto';
 import { Category } from '../entities/category.entity';
 import { Option } from '../entities/option.entity';
 import { ProductListItemDto } from './dto/product-list-item.dto';
+import { ProductDetailDto } from './dto/product-detail.dto';
 
 @Injectable()
 export class ProductService {
@@ -70,5 +71,37 @@ export class ProductService {
       (el) => new ProductListItemDto(el),
     );
     return result;
+  }
+
+  async detail(id: number): Promise<ProductDetailDto> {
+    const product = await this.productRepository
+      .createQueryBuilder('product')
+      .select([
+        'product.id',
+        'product.butcheredDate',
+        'product.price',
+        'product.grams',
+        'product.isOrganic',
+        'product.thumbnail',
+        'images.imageUrl',
+        'images.sequence',
+      ])
+      .innerJoin('product.images', 'images')
+      .innerJoinAndSelect('product.productsOptions', 'productsOptions')
+      .innerJoinAndSelect('productsOptions.option', 'options')
+      .where('product.id = :id', { id })
+      .getOne();
+
+    if (!product) {
+      throw new BadRequestException('INVALID_PRODUCT');
+    }
+
+    product['options'] = product.productsOptions.map((item) => {
+      item.option.id = +item.option.id;
+      return item.option;
+    });
+    delete product.productsOptions;
+
+    return new ProductDetailDto(product);
   }
 }
